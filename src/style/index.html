@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Main screen</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <script defer src="index.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../node_modules/bulma/css/bulma.css">
+    <link rel="stylesheet" href="../../node_modules/bulma-switch/dist/css/bulma-switch.min.css">
+    <link rel="stylesheet" href="../../node_modules/bulma-divider/dist/css/bulma-divider.min.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="/debug.css">
+</head>
+
+
+<script>
+</script>
+
+<body id="body" onload="startDefSetting()">
+    <section class="section py-0 my-0 px-0 py-0">
+        <div class="container is-wide">
+            <!-- 2 main columns settings and main part-->
+            <div class="columns">
+
+                <!-- Side column-->
+                <div class="column has-background-primary-light pr-1">
+
+                    <section class="section py-0 my-1 px-0 mx-1">
+                        <div class="container">
+
+                            <!-- Tabs -->
+                            <div class="tabs is-left is-boxed is-medium">
+                                <ul>
+                                    <!-- Tab 1 settings -->
+                                    <li class="is-active" data-target="Settings-content">
+                                        <a>
+                                            <span>Settings</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Tab 2 Help -->
+                                    <li data-target="help-content">
+                                        <a>
+                                            <span>Help</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="px-1" id="tabs-content">
+                                <div id="Settings-content">
+                                    <div class="container my-1 py-1">
+                                        <button class="button is-fullwidth mb-2" id="sss">Add a Layout</button>
+                                        <button class="button is-fullwidth">Delete a Layout</button>
+                                    </div>
+                                    <div class="is-divider my-5" data-content="Selectors"></div>
+                                    <div class="container my-1 py-1">
+                                        <div class="field" name="conv_selected" onchange="switchvalue(this)">
+                                            <input id="switchConvHigh" type="checkbox" class="switch is-rounded is-rtl" checked value="true">
+                                            <label for="switchConvHigh">Convert the highlighted</label>
+                                        </div>
+                                        <div class="control" name="conv_selected">
+                                            <input class="input" type="text" placeholder="Shortcut" value="" readonly onfocusout="updateShortcut(this)" onkeydown="reportKeyEvent(this, event)">
+                                        </div>
+                                    </div>
+                                    <div class="container my-1 py-1">
+                                        <div class="field" name="conv_line" onchange="switchvalue(this)">
+                                            <input id="switchConvLine" type="checkbox" class="switch is-rounded is-rtl" value="false">
+                                            <label for="switchConvLine">Convert the line</label>
+                                        </div>
+                                        <div class="control" name="conv_line">
+                                            <input class="input" type="text" placeholder="Shortcut" readonly onfocusout="updateShortcut(this)" disabled onkeydown="reportKeyEvent(this, event)">
+                                        </div>
+                                    </div>
+                                    <div class="is-divider my-5"></div>
+                                    <div class="container my-1 py-1">
+                                        <div class="field" name="startup" onchange="switchvalue(this)">
+                                            <input id="startup" type="checkbox" class="switch is-rounded is-rtl" value="false">
+                                            <label for="startup">Run with Windows</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="help-content" class="is-hidden ">
+                                    <div class="is-divider my-5" data-content="How to use"></div>
+                                    <p>- Select the 2 keyboards layouts <br>- Enabled a Selector <br>- Insert the keyboard Shortcut <br>- Keydown the Shortcut </p>
+                                    <div class="is-divider my-5" data-content="About"></div>
+                                    <p>Current version: </p>
+                                    <p>Developer: Mohammed Alsaggaf</p>
+
+                                    <div class="is-divider my-5"></div>
+                                    <button class="button is-fullwidth mb-5 is-link" id="checkUpdate">Check for update</button>
+                                    <button class="button is-fullwidth mb-3 is-danger" id="reportBug ">Report a bug</button>
+                                    <button class="button is-fullwidth mb-3 is-success" id="contribute">Contribute</button>
+                                    <button class="button is-fullwidth mb-2 is-warning" id="githubLink">Source on Github</button>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Main column-->
+                <div class="column is-two-thirds has-background-link-light ">
+                    <section class="section pb-5 pr-3">
+                        <div class="container ml-1 ">
+
+                            <!-- section for chossing the keyboards-->
+                            <section class="section pt-0 pb-4 ">
+                                <div class="container ">
+                                    <div class="columns">
+                                        <div class="column pr-4">
+                                            <field class="f ">
+                                                <label for="fisrtSelect " class="is-size-6 has-text-weight-medium ">Choose layout</label>
+                                                <div class="select is-rounded is-fullwidth ml-1 " id="firstSelect ">
+                                                    <select class="list " onChange="updateMainLayout() ">
+                                                        <option>Choose layout</option>
+                                                    </select>
+                                                </div>
+                                            </field>
+                                        </div>
+                                        <div class="column pl-4">
+                                            <field class="f ">
+                                                <label for="secondSelect " class="is-size-6 has-text-weight-medium ">Choose layout</label>
+                                                <div class="select is-rounded is-fullwidth ml-1 " id="secondSelect ">
+                                                    <select class="list " onChange="updateMainLayout() ">
+                                                        <option>Choose layout</option>
+                                                    </select>
+                                                </div>
+                                            </field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+
+
+                            <!-- section for the converted text-->
+                            <section class="section pt-2 ">
+                                <div class="container ">
+                                    <div class="columns is-vcentered ">
+                                        <div class="column mr-2 ml-1">
+                                            <div class="box ">
+
+
+                                            </div>
+                                        </div>
+                                        <div class="column ml-1">
+                                            <div class="box ">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

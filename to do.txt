@@ -1,0 +1,18 @@
+Functions: 
+startup
+Add custom layout 
+tray icon
+version update
+
+can't choose same lag in both selects
+
+Help - popup slides how to use
+
+
+
+Code notes:
+keyboard layouts JSON - needs a better format for all languages 
+Converter - need to find a better way for languange detection before converting
+Converter- find a solution for characters in input but not in the map
+
+

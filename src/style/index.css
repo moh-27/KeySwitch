@@ -1,0 +1,14 @@
+#firstSelect,
+#secondSelect {
+    max-width: 170px;
+    max-height: 40px;
+    min-width: 160px;
+    min-height: 40px;
+}
+
+.box {
+    max-height: 350px;
+    max-width: 195px;
+    overflow-wrap: break-word;
+    overflow: hidden;
+}
