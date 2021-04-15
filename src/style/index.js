@@ -200,3 +200,10 @@ ipcRenderer.on('newText', (event, before, reverse, lang) => {
     }
 
 })
+
+function openInBrowser() {
+    if (event.target.tagName.toLowerCase() === 'a' && event.target.protocol != 'file:') {
+        event.preventDefault();
+        require("electron").shell.openExternal(event.target.href);
+    }
+}
