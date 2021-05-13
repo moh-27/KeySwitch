@@ -2,16 +2,12 @@ const { app, BrowserWindow, globalShortcut, ipcMain, Menu, clipboard, Tray } = r
 const { readFileSync, writeFileSync } = require('fs');
 var robot = require("robotjs");
 
-require('./layouts/build.js');
-require('./converter.js');
-
 //require('electron-reload')(__dirname);
 //const debug = require('electron-debug');
 //const { FORMERR } = require('dns');
 // { settings } = require('cluster');
-//const { convert } = require('./converter.js');
-
-debug();
+const { convert } = require('./converter.js');
+//debug();
 
 //start
 let win;
