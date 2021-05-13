@@ -5,11 +5,11 @@ var robot = require("robotjs");
 require('./layouts/build.js');
 require('./converter.js');
 
-require('electron-reload')(__dirname);
-const debug = require('electron-debug');
-const { FORMERR } = require('dns');
-const { settings } = require('cluster');
-const { convert } = require('./converter.js');
+//require('electron-reload')(__dirname);
+//const debug = require('electron-debug');
+//const { FORMERR } = require('dns');
+// { settings } = require('cluster');
+//const { convert } = require('./converter.js');
 
 debug();
 
@@ -90,12 +90,12 @@ function setSettings(settings) {
     globalShortcut.unregisterAll()
 
     for (let set of settings) {
-        if (set.shortcut && set.active) {
+        if (set.shortcut && set.active) { //For the first 2 objects in settings
             if (set.name == "conv_selected") {
                 globalShortcut.register(set.shortcut, () => {
                     robot.keyTap('x', "control")
                     const text = clipboard.readText()
-                    let conv = convert(text, curLayout) // contain [reverse, and number of the lang converted from]
+                    let conv = convert(text, curLayout, settings[3].undefinedCharOption) // contain [reverse, and lang's number converted from]
                     clipboard.writeText(conv[0])
                     robot.keyTap('v', "control")
                     win.webContents.send('newText', text, conv[0], conv[1])
@@ -106,7 +106,7 @@ function setSettings(settings) {
                     robot.keyTap('end', "shift")
                     robot.keyTap('x', "control")
                     const text = clipboard.readText()
-                    let conv = convert(text, curLayout)
+                    let conv = convert(text, curLayout, settings[3].undefinedCharOption)
                     clipboard.writeText(conv[0])
                     robot.keyTap('v', "control")
                     win.webContents.send('newText', text, conv[0], conv[1])
@@ -147,12 +147,21 @@ ipcMain.on('update-shortcutKeys', (event, setName, newShortcut) => {
     setSettings(curSettings);
 })
 
+//Update for convert undefined character
+ipcMain.on('update-undefinedCharOption', (event, setName, selectedOpt) => {
+    for (let set of curSettings) {
+        if (set.name == setName) {
+            set.undefinedCharOption = selectedOpt;
+        }
+    }
+})
+
 
 //Update default settings
 function UpdateDefSettings(setting) {
 
-    setting[3].firstLang = usedLangs[0];
-    setting[3].secondLang = usedLangs[1];
+    setting[setting.length - 1].firstLang = usedLangs[0];
+    setting[setting.length - 1].secondLang = usedLangs[1];
 
     let data = JSON.stringify(setting);
     writeFileSync('./src/settings.json', data);

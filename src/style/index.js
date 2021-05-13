@@ -1,5 +1,4 @@
 const { getAllLangs, buildCurLayoutMap } = require("../layouts/build");
-const { convert } = require("../converter");
 const path = require('path');
 const { ipcRenderer } = require('electron');
 const { SIGPWR } = require("constants");
@@ -81,6 +80,22 @@ function switchvalue(item) {
     }
 }
 
+//Radio for undefined character
+const radio = document.querySelectorAll('.radio > input');
+
+radio.forEach((item) => {
+    item.addEventListener('click', () => {
+
+        radio.forEach(item => {
+            item.removeAttribute("checked")
+        })
+
+        item.setAttribute('checked', "")
+        ipcRenderer.send('update-undefinedCharOption', item.getAttribute('name'), item.getAttribute('value'))
+
+    })
+})
+
 
 function reportKeyEvent(input, zEvent) {
     input.removeAttribute('value', "")
@@ -113,11 +128,12 @@ function startDefSetting() {
 
 }
 
+// Put default settings whens strat the app
 ipcRenderer.on('getDefSettings', (event, defSettings) => {
 
     let swt = new Array();
     let inputBox = new Array();
-    let defLangs = [defSettings[3].firstLang, defSettings[3].secondLang];
+    let defLangs = [defSettings[defSettings.length - 1].firstLang, defSettings[defSettings.length - 1].secondLang];
 
 
     fields.forEach((item) => {
@@ -125,7 +141,7 @@ ipcRenderer.on('getDefSettings', (event, defSettings) => {
         inputBox.push(item.nextElementSibling ? item.nextElementSibling.firstElementChild : false);
     })
 
-    for (let i = 0; i < defSettings.length - 1; i++) {
+    for (let i = 0; i < defSettings.length - 2; i++) {
         if (defSettings[i].active == false) {
             swt[i].removeAttribute("checked")
             swt[i].setAttribute('value', 'false')
@@ -142,6 +158,13 @@ ipcRenderer.on('getDefSettings', (event, defSettings) => {
             }
         }
     }
+
+    radio.forEach((item) => {
+
+        item.value == defSettings[3].undefinedCharOption ? item.checked = true : item.checked = false;
+    })
+
+
     for (let i = 0; i < defLangs.length; i++) {
         var sel = dropdown[i]
         var opts = sel.options;

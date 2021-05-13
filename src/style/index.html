@@ -15,9 +15,6 @@
 </head>
 
 
-<script>
-</script>
-
 <body id="body" onload="startDefSetting()">
     <section class="section py-0 my-0 px-0 py-0">
         <div class="container is-wide">
@@ -51,8 +48,8 @@
                             <div class="px-1" id="tabs-content">
                                 <div id="Settings-content">
                                     <div class="container my-1 py-1">
-                                        <button class="button is-fullwidth mb-2" id="sss">Add a Layout</button>
-                                        <button class="button is-fullwidth">Delete a Layout</button>
+                                        <button class="button is-fullwidth mb-2" id="sss" disabled>Add a Layout</button>
+                                        <button class="button is-fullwidth" disabled>Delete a Layout</button>
                                     </div>
                                     <div class="is-divider my-5" data-content="Selectors"></div>
                                     <div class="container my-1 py-1">
@@ -73,11 +70,28 @@
                                             <input class="input" type="text" placeholder="Shortcut" readonly onfocusout="updateShortcut(this)" disabled onkeydown="reportKeyEvent(this, event)">
                                         </div>
                                     </div>
+                                    <div class="container my-1 pt-3">
+                                        <p>Convert undefined character to:</p>
+                                        <div class="control py-2">
+                                            <label class="radio">
+                                                <input type="radio" name="conv_undefined" value="Print" disabled>
+                                                Print
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="conv_undefined" value="Space" checked>
+                                                Space
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="conv_undefined" value="Delete">
+                                                Delete
+                                            </label>
+                                        </div>
+                                    </div>
                                     <div class="is-divider my-5"></div>
-                                    <div class="container my-1 py-1">
+                                    <div class="container mt-1 mb-2 py-1">
                                         <div class="field" name="startup" onchange="switchvalue(this)">
                                             <input id="startup" type="checkbox" class="switch is-rounded is-rtl" value="false">
-                                            <label for="startup">Run with Windows</label>
+                                            <label for="startup">Run with startup </label>
                                         </div>
                                     </div>
                                 </div>
