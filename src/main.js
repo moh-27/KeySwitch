@@ -1,13 +1,15 @@
 const { app, BrowserWindow, globalShortcut, ipcMain, Menu, clipboard, Tray } = require('electron')
-const { readFileSync, writeFileSync } = require('fs');
+const { readFileSync, writeFileSync, existsSync } = require('fs');
 var robot = require("robotjs");
 
-//require('electron-reload')(__dirname);
+require('electron-reload')(__dirname);
 //const debug = require('electron-debug');
+//debug();
+
 //const { FORMERR } = require('dns');
 // { settings } = require('cluster');
 const { convert } = require('./converter.js');
-//debug();
+const { settings } = require('cluster');
 
 //start
 let win;
@@ -24,7 +26,8 @@ function createWindow() {
         useContentSize: true,
         resizable: false,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            enableRemoteModule: true
         }
     })
     win.removeMenu()
@@ -45,7 +48,7 @@ app.on('ready', () => {
     //start app with the last used settings 
 
 
-    tray = new Tray('src/style/icon.png')
+    tray = new Tray('src/style/icon/icon.png')
 
     const contextMenu = Menu.buildFromTemplate([
         { label: 'Open', type: 'normal', click: () => win.show() },
@@ -68,7 +71,37 @@ ipcMain.on('defSetting', (event) => {
 
 // return the default settings / from settings.json file
 function getDefaultSettings() {
-    let settings = JSON.parse(readFileSync('./src/settings.json'));
+    let defset = [{
+            "name": "conv_selected",
+            "active": true,
+            "shortcut": "CmdOrCtrl+Q "
+        },
+        {
+            "name": "conv_line",
+            "active": true,
+            "shortcut": "CmdOrCtrl+W "
+        },
+        {
+            "name": "startup",
+            "active": false
+        },
+        {
+            "name": "conv_undefined",
+            "undefinedCharOption": "Delete"
+        },
+        {
+            "firstLang": "ar",
+            "secondLang": "en"
+        }
+    ];
+    let settings;
+    let path = app.getPath("userData") + "\\storage\\settings.json";
+    if (existsSync(path)) {
+        settings = JSON.parse(readFileSync(app.getPath("userData") + "\\storage\\settings.json"));
+    } else {
+        writeFileSync(app.getPath("userData") + "\\storage\\settings.json", JSON.stringify(defset));
+        settings = JSON.parse(readFileSync(app.getPath("userData") + "\\storage\\settings.json"));
+    };
 
     return settings;
 }
@@ -153,14 +186,16 @@ ipcMain.on('update-undefinedCharOption', (event, setName, selectedOpt) => {
 })
 
 
-//Update default settings
+//Update default settings JSON
 function UpdateDefSettings(setting) {
 
     setting[setting.length - 1].firstLang = usedLangs[0];
     setting[setting.length - 1].secondLang = usedLangs[1];
 
     let data = JSON.stringify(setting);
-    writeFileSync('./src/settings.json', data);
+
+    writeFileSync(app.getPath("userData") + "\\storage\\settings.json", data);
+
 }
 
 
