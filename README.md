@@ -1,6 +1,10 @@
-# keyboard-switch
+# KeySwitch
  KeySwitch is an open-source cross-platform desktop app. It allows you to convert text based on the chosen keyboard layouts. KeySwitch was designed to solve the issue that bilingual and mulitigual keyboard users face. Whereas its common to forget to change the keyboard language before start writing, which leads to delete that and rewrite again.
  
+## Install
+Go to the [realses](https://github.com/moh-27/KeySwitch/releases) page and downloand the latest version
+ 
+## How It Works
 KeySwitch solves this for you with one press.
 1. Firstly to choose your keyboard layouts/languages 
 2. Choose a shorcut key
