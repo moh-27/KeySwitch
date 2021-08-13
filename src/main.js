@@ -2,7 +2,7 @@ const { app, BrowserWindow, globalShortcut, ipcMain, Menu, clipboard, Tray } = r
 const { readFileSync, writeFileSync, existsSync } = require('fs');
 var robot = require("robotjs");
 
-require('electron-reload')(__dirname);
+//require('electron-reload')(__dirname);
 //const debug = require('electron-debug');
 //debug();
 

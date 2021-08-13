@@ -1,6 +1,6 @@
 {
     "name": "keyboardswitch",
-    "version": "1.3.0",
+    "version": "0.6.0",
     "description": "",
     "main": "./src/main.js",
     "scripts": {
@@ -15,15 +15,15 @@
         "appId": "com.moh27.keyboardSwitch",
         "productName": "Keyboard Switch",
         "directories": {
-            "output": "build"
+            "output": "../build/1"
         },
         "win": {
             "target": "nsis",
-            "icon": "build/icon/icon.ico"
+            "icon": "src/style/icon/icon.ico"
         },
         "nsis": {
-            "installerIcon": "build/icon/icon.ico",
-            "uninstallerIcon": "build/icon/uns.ico",
+            "installerIcon": "src/style/icon/icon.ico",
+            "uninstallerIcon": "src/style/icon/uns.ico",
             "uninstallDisplayName": "Uninstall Keyboard Switch",
             "oneClick": false,
             "allowToChangeInstallationDirectory": true
