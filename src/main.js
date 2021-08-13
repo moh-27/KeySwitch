@@ -95,12 +95,11 @@ function getDefaultSettings() {
         }
     ];
     let settings;
-    let path = app.getPath("userData") + "\\storage\\settings.json";
-    if (existsSync(path)) {
-        settings = JSON.parse(readFileSync(app.getPath("userData") + "\\storage\\settings.json"));
+    if (existsSync(app.getPath("userData") + "\\Local Storage\\settings.json")) {
+        settings = JSON.parse(readFileSync(app.getPath("userData") + "\\Local Storage\\settings.json"));
     } else {
-        writeFileSync(app.getPath("userData") + "\\storage\\settings.json", JSON.stringify(defset));
-        settings = JSON.parse(readFileSync(app.getPath("userData") + "\\storage\\settings.json"));
+        writeFileSync(app.getPath("userData") + "\\Local Storage\\settings.json", JSON.stringify(defset));
+        settings = JSON.parse(readFileSync(app.getPath("userData") + "\\Local Storage\\settings.json"));
     };
 
     return settings;

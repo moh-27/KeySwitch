@@ -15,7 +15,7 @@
         "appId": "com.moh27.keyboardSwitch",
         "productName": "Keyboard Switch",
         "directories": {
-            "output": "../build/1"
+            "output": "../build/2"
         },
         "win": {
             "target": "nsis",
