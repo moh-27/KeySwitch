@@ -1,5 +1,5 @@
 {
-    "name": "KeySwitch",
+    "name": "keyswitch",
     "version": "0.6.0",
     "description": "",
     "main": "./src/main.js",
